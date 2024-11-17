@@ -2,6 +2,7 @@ import generarId from '../helpers/generarId.js';
 import generarJWT from '../helpers/generarJWT.js';
 import Usuario from '../models/Usuario.js';
 import emailRegistro from '../helpers/emailRegistro.js';
+import emailOlvidePassword from '../helpers/emailOlvidePassword.js';
 
 
 const registrar = async (req, res) => {
@@ -88,19 +89,25 @@ const login = async (req, res) => {
 
 const olvidePassword = async (req, res) => {
     const { email } = req.body;
-
     const existeUsuario = await Usuario.findOne({
         email
     });
 
     if (!existeUsuario) {
-        const error = new Error('Usuario no existe');
-        return res.status(400).send({ error: error.message });
+        const error = new Error('El correo no existe');
+        return res.status(400).json({ msg: error.message });
     }
 
     try{
         existeUsuario.token = generarId();
         await existeUsuario.save();
+
+        emailOlvidePassword({
+            email,
+            name: existeUsuario.name,
+            token: existeUsuario.token
+        });
+
         res.json({ msg: 'Token enviado a su correo' });
     }
     catch (error) {

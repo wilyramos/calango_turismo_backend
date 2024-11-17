@@ -12,7 +12,6 @@ router.post('/login', login); // authentification
 router.post('/olvide-password', olvidePassword);
 router.route('/olvide-password/:token').get(comprobarToken).post(cambiarPassword);
 
-
 router.get('/actualizarPerfil', actualizarPerfil);
 router.get('/perfil', verifyAuth, perfil);
 

@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
-const domininiosPermitidos = ['http://localhost:5000', 'http://localhost:5174'];
+const domininiosPermitidos = ['http://localhost:5000', 'http://localhost:5174', 'http://localhost:5173' ];
 
 const corsOptions = {
     origin: (origin, callback) => {
