@@ -21,7 +21,7 @@ const createPlace = async (req, res) => {
         const newPlace = await place.save();
         res.status(201).json(newPlace);
     } catch (error) {
-        res.status(400).send({ error: error.message });
+        res.status(400).send({ msg: error.message });
     }
 }
 
@@ -30,7 +30,7 @@ const getPlaces = async (req, res) => {
         const places = await Place.find({});
         res.json(places);
     } catch (error) {
-        res.status(400).send({ error: error.message });
+        res.status(400).send({ msg: error.message });
     }
 }
 
@@ -44,7 +44,7 @@ const getPlaceById = async (req, res) => {
         res.json(place);
     }
     catch(error){
-        res.status(400).send({ error: error.message });
+        res.status(400).send({ msg: error.message });
     }
 };
 
@@ -79,7 +79,7 @@ const updatePlace = async (req, res) => {
         const updatedPlace = await place.save();
         res.json(updatedPlace);
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(500).send({ msg: error.message });
     }
 };
 
@@ -102,7 +102,7 @@ const deletePlace = async (req, res) => {
         await place.deleteOne();
         res.json({ msg: "Lugar eliminado correctamente" });
     } catch (error) {
-        res.status(500).json({ msg: 'Server error', error: error.message });
+        res.status(500).json({ msg: 'Server error', msg: error.message });
     }
 };
 

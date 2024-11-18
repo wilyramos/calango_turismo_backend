@@ -7,13 +7,13 @@ import emailOlvidePassword from '../helpers/emailOlvidePassword.js';
 
 const registrar = async (req, res) => {
     const { email } = req.body;
-    const userExists = await Usuario.findOne({
+    const existeUsuario = await Usuario.findOne({
         email
     });
 
-    if (userExists) {
+    if (existeUsuario) {
         const error = new Error('Usuario ya existe');
-        return res.status(400).send({ error: error.message });
+        return res.status(400).send({ msg: error.message });
     }
 
     try {
@@ -31,7 +31,7 @@ const registrar = async (req, res) => {
 
         res.json(userSaved);
     } catch (error) {
-        res.status(400).send({ error: error.message });
+        res.status(400).send({ msg: error.message });
     } 
 };
 
@@ -69,17 +69,17 @@ const login = async (req, res) => {
 
     if (!user) {
         const error = new Error('Usuario no existe');
-        return res.status(400).send({ error: error.message });
+        return res.status(400).send({ msg: error.message });
     }
 
     if (!user.confirmado) {
         const error = new Error('Usuario no confirmado');
-        return res.status(403).send({ error: error.message });
+        return res.status(403).send({ msg: error.message });
     }
 
     if(!( await user.comparePassword(password))) {
         const error = new Error('Contraseña incorrecta');
-        return res.status(403).send({ error: error.message });
+        return res.status(403).send({ msg: error.message });
     }
 
     // Generate JWT
