@@ -9,7 +9,7 @@ const verifyAuth = async (req, res, next) => {
         try {
             token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.usuario = await Usuario.findById(decoded.id).select('-password');
+            req.usuario = await Usuario.findById(decoded.id).select('-password -token');
 
             // console.log(req.usuario);
             return next();
@@ -19,7 +19,7 @@ const verifyAuth = async (req, res, next) => {
         }
     }
     if(!token) {
-        res.status(401).json({ msg: 'No autorizado, no hay token' });
+        return res.status(401).json({ msg: 'No autorizado, no hay token' });
     }
 
     next();

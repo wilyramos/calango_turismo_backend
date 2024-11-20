@@ -83,8 +83,16 @@ const login = async (req, res) => {
     }
 
     // Generate JWT
-    const token = generarJWT(user.id);
-    res.json({ token });    
+
+    // return token and role of user
+
+    res.json({ 
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        token: generarJWT(user._id)
+    });    
 };
 
 const olvidePassword = async (req, res) => {
@@ -160,8 +168,44 @@ const perfil = (req, res) => {
 };
 
 
-const actualizarPerfil = (req, res) => {
-    res.send('Atualizar perfil usuário');
+const actualizarPerfil = async (req, res) => {
+
+    const usuario = await Usuario.findById(req.params.id);
+
+    if (!usuario) {
+        const error = new Error('Usuario no existe');
+        return res.status(400).json({ msg: error.message });
+    }
+
+    const { email } = req.body;
+
+    if(usuario !== req.body.email) {
+        const existeUsuario = await Usuario.findOne({
+            email
+        });
+
+        if (existeUsuario) {
+            const error = new Error('El email ya esta en uso');
+            return res.status(400).json({ msg: error.message });
+        }
+    }
+
+    try {
+        usuario.name = req.body.name;
+        usuario.email = req.body.email;
+        usuario.preferences = req.body.preferences;
+        usuario.recomendations = req.body.recomendations;
+        usuario.visitedPlaces = req.body.visitedPlaces;
+
+        const usuarioActualizado = await usuario.save();
+
+        res.json(usuarioActualizado);        
+    }
+    catch (error) {
+        console.log(error);
+    }
+
+    
 };
 
 export { 
@@ -172,5 +216,5 @@ export {
     confirmar,
     olvidePassword,
     comprobarToken,
-    cambiarPassword
+    cambiarPassword,
 };
