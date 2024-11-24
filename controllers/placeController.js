@@ -17,6 +17,10 @@ const createPlace = async (req, res) => {
         popularityScore
     });
 
+    if (!name || !description) {
+        return res.status(400).json({ msg: 'Los campos name y description son obligatorios.' });
+    }
+
     try {
         const newPlace = await place.save();
         res.status(201).json(newPlace);

@@ -164,7 +164,7 @@ const cambiarPassword = async (req, res) => {
 
 const perfil = (req, res) => {
     const { usuario } = req;
-    res.json({ usuario }); 
+    res.json(usuario ); 
 };
 
 

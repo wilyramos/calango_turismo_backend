@@ -17,4 +17,7 @@ router.get('/perfil', verifyAuth, perfil);
 router.put('/perfil/:id', verifyAuth, actualizarPerfil); // Actualizar perfil
 
 
+
+
+
 export default router;
