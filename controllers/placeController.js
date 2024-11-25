@@ -14,7 +14,9 @@ const createPlace = async (req, res) => {
         reviews,
         imageUrls,
         activities,
-        popularityScore
+        popularityScore,
+        
+
     });
 
     if (!name || !description) {
@@ -61,7 +63,7 @@ const updatePlace = async (req, res) => {
     }
 
     try {
-        const place = await Place.findById(idPlace);
+        const place = await Place.findByIdAndUpdate(idPlace);
         
         if (!place) {
             return res.status(404).json({ msg: 'Place not found' });
