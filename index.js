@@ -12,17 +12,17 @@ app.use(express.json());
 dotenv.config();
 
 
-const domininiosPermitidos = ['http://localhost:5000', 'http://localhost:5174', 'http://localhost:5173' ];
-const corsOptions = {
-    origin: (origin, callback) => {
-        if(domininiosPermitidos.indexOf(origin) !== -1){
-            callback(null, true);
-        }else{
-            callback(new Error('Dominio no permitido'));
-        }
-    }
-}
-app.use(cors(corsOptions));
+// const domininiosPermitidos = ['http://localhost:5000', 'http://localhost:5174', 'http://localhost:5173' ];
+// const corsOptions = {
+//     origin: (origin, callback) => {
+//         if(domininiosPermitidos.indexOf(origin) !== -1){
+//             callback(null, true);
+//         }else{
+//             callback(new Error('Dominio no permitido'));
+//         }
+//     }
+// }
+// app.use(cors(corsOptions));
 
 
 

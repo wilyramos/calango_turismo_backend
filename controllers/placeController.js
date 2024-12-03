@@ -94,7 +94,9 @@ const updatePlace = async (req, res) => {
 
 
 const uploadImages = async (req, res) => {
-    const form = formidable({ multiples: true });
+    const form = formidable({ 
+        multiples: true 
+    });
 
     try {
         // Parsear los archivos
@@ -105,6 +107,12 @@ const uploadImages = async (req, res) => {
 
             // Verificar si es un array o un solo archivo
             const images = Array.isArray(files.file) ? files.file : [files.file];
+            
+            // max 5 images
+            if (images.length > 5) {
+                return res.status(400).json({ msg: 'Solo puedes subir un máximo de 5 imágenes' });
+            }
+            
             const imageUrls = [];
 
             // Crear un array de promesas para subir todas las imágenes
