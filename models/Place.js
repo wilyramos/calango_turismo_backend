@@ -33,7 +33,7 @@ const placeSchema = new mongoose.Schema({
             ref: 'Review' 
         }
     ],
-    imageUrls: [String],
+    images: [String],
     activities: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Activity' 

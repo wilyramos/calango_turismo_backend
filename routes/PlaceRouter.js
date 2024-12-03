@@ -1,43 +1,63 @@
 import express from 'express';
+import isAdmin from '../middleware/isAdmin.js';
 
-import { createPlace, getPlaces, getPlaceById, updatePlace, deletePlace } from '../controllers/placeController.js';
+// Controllers for Places and Reviews
+import { 
+  createPlace, 
+  getPlaces, 
+  getPlaceById, 
+  updatePlace, 
+  deletePlace, 
+  uploadImages 
+} from '../controllers/placeController.js';
 
-import { createReview, getReviews, updateReview, deleteReview} from '../controllers/reviewController.js';
+import { 
+  createReview, 
+  getReviews, 
+  updateReview, 
+  deleteReview
+} from '../controllers/reviewController.js';
 
+// Middleware for authentication
 import verifyAuth from '../middleware/authMiddleware.js';
-
 
 const router = express.Router();
 
-// router.route('/')
-//     .post(verifyAuth, createPlace)
-//     .get(verifyAuth, getPlaces);
+// Routes for managing Places
 
-router.post('/', verifyAuth, createPlace);
+// Create a new place (requires authentication)
+router.post('/', verifyAuth, isAdmin, createPlace);
+
+// Get all places (public)
 router.get('/', getPlaces);
 
-// router.route('/:id')
-//     .get(verifyAuth, getPlaceById)
-//     .put(verifyAuth, updatePlace)
-//     .delete(verifyAuth, deletePlace);
-
+// Get a specific place by ID (public)
 router.get('/:idPlace', getPlaceById);
-router.put('/:idPlace',verifyAuth, updatePlace);
-router.delete('/:idPlace', verifyAuth, deletePlace);
 
-// reviews
+// Update a place (requires authentication)
+router.put('/:idPlace', verifyAuth, isAdmin, updatePlace);
 
-// Create a review
+// Delete a place (requires authentication)
+router.delete('/:idPlace', verifyAuth, isAdmin, deletePlace);
+
+// Upload images for a specific place (requires authentication)
+router.post('/:idPlace/images', verifyAuth, isAdmin, uploadImages);
+
+
+
+
+// Routes for managing Reviews
+
+// Create a review for a specific place (requires authentication)
 router.post('/:idPlace/review', verifyAuth, createReview);
 
-// Get all reviews for a specific item
+// Get all reviews for a specific place (public)
 router.get('/:idPlace/reviews', getReviews);
 
-// Update a review
+// Update a specific review (requires authentication)
 router.put('/:idPlace/review/:idReview', verifyAuth, updateReview);
 
-// Delete a review
+// Delete a specific review (requires authentication)
 router.delete('/:idPlace/review/:idReview', verifyAuth, deleteReview);
-
 
 export default router;
