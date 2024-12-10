@@ -18,7 +18,7 @@ const placeSchema = new mongoose.Schema({
     },
     category: { 
         type: String, 
-        enum: ['Nature', 'Culture', 'Recreational', 'Historical', 'Urban'] 
+        enum: ['Nature', 'Culture', 'Historical', 'Aventura'] 
     }, 
     priceRange: { 
         type: String, 
