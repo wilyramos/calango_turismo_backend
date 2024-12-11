@@ -15,9 +15,13 @@ dotenv.config();
 
 console.log(process.env.FRONTEND_URL);
 
-// const domininiosPermitidos = ['http://localhost:5000', 'http://localhost:5174', 'http://localhost:5173', process.env.FRONTEND_URL];
+const domininiosPermitidos = [
+    'http://localhost:5000', 
+    'http://localhost:5173', 
+    'https://descubrecalango.vercel.app', 
+    process.env.FRONTEND_URL
+];
 
-const domininiosPermitidos = [process.env.FRONTEND_URL];
 const corsOptions = {
     origin: (origin, callback) => {
         if(domininiosPermitidos.indexOf(origin) !== -1){
