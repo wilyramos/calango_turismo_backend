@@ -18,7 +18,7 @@ console.log(process.env.FRONTEND_URL);
 const domininiosPermitidos = [
     'http://localhost:5000', 
     'http://localhost:5173', 
-    'https://descubrecalango.vercel.app', 
+    'https://descrubrecalango.vercel.app', 
     process.env.FRONTEND_URL
 ];
 
@@ -64,5 +64,5 @@ app.use('/api/admin', adminRouter);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
