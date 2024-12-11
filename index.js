@@ -11,8 +11,10 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
+// Configurar CORS
 
-const domininiosPermitidos = ['http://localhost:5000', 'http://localhost:5174', 'http://localhost:5173' ];
+
+const domininiosPermitidos = ['http://localhost:5000', 'http://localhost:5174', 'http://localhost:5173', process.env.FRONTEND_URL];
 const corsOptions = {
     origin: (origin, callback) => {
         if(domininiosPermitidos.indexOf(origin) !== -1){
