@@ -93,8 +93,8 @@ const updatePlace = async (req, res) => {
 
 const uploadImages = async (req, res) => {
     const form = formidable({ 
-        multiples: true 
-    });
+        multiples: true  // Permite recibir varios archivos
+    }); //
 
     form.parse(req, async (error, fields, files) => {
         if (error) {
